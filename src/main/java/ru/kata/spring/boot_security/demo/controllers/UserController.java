@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
+
 @Controller
 public class UserController {
     @Autowired
@@ -17,6 +18,7 @@ public class UserController {
     public String getUser(Model model) {
         User userInfo = userService.getUserInfo();
         model.addAttribute("userInfo", userInfo);
+        model.addAttribute("userRoles", userService.getUserRoles());
         return "user";
     }
 
