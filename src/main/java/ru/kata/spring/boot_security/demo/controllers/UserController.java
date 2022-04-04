@@ -18,7 +18,6 @@ public class UserController {
     public String getUser(Model model) {
         User userInfo = userService.getUserInfo();
         model.addAttribute("userInfo", userInfo);
-        model.addAttribute("userRoles", userService.getUserRoles());
         return "user";
     }
 

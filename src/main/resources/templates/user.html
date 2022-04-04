@@ -1,17 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>User</title>
 </head>
 <body>
-<nav class="navbar navbar-dark bg-dark">
+<div class="panel">
+    <nav class="navbar navbar-dark bg-dark">
     <span class="navbar-text" style="color: white"> with Roles:
         <span th:each="role : ${userInfo.roles}">
             <span th:text="${role.getName().substring(5)}"></span>
         </span></span>
-    <a class="nav-link" href="/logout" style="color: dimgray">Logout</a>
-</nav>
+        <a class="nav-link" href="/logout" style="color: dimgray">Logout</a>
+    </nav>
+</div>
+<div class="vertical-menu" style="width: 10%">
+    <a href="@{/user}">User</a>
+</div>
     <table border="1">
         <tr>
             <th>Id</th>
