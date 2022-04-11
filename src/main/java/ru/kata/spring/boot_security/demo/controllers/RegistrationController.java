@@ -1,19 +1,30 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+    private final RoleService roleService;
+
+    public RegistrationController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     @GetMapping("/registration")
     public String registration(User user) {
@@ -22,20 +33,15 @@ public class RegistrationController {
     }
 
     @PostMapping("/registration")
-    public String addUser(User userForm, BindingResult bindingResult, Model model) {
-
-        if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
-        }
-        if (!userService.saveUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
+    public String addUser(@ModelAttribute("user")User user, @RequestParam("newRoles[]") String[] roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : roles){
+            roleSet.add(roleService.getRoleByName(role));
         }
 
-        return "redirect:/";
+        user.setRoles(roleSet);
+        userService.saveUser(user);
+
+        return "redirect:/admin";
     }
 }

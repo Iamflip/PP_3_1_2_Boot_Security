@@ -25,9 +25,6 @@ public class User implements UserDetails {
     private Long id;
 
     @Column
-    private String username;
-
-    @Column
     private String firstName;
 
     @Column
@@ -35,6 +32,9 @@ public class User implements UserDetails {
 
     @Column
     private Integer age;
+
+    @Column
+    private String username;
 
     @Column
     private String password;
