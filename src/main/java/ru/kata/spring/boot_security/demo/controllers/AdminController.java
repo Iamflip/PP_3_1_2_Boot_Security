@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +14,8 @@ import java.util.Set;
 @Controller
 public class AdminController {
     private final UserService userService;
-
     private final RoleService roleService;
+    private static final String mainHttp = "redirect:/admin";
 
     public AdminController(UserService userService, RoleService roleService) {
         this.userService = userService;
@@ -24,17 +23,11 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public String userList(Model model) {
+    public String userList(Model model, User user) {
         User userInfo = userService.getUserInfo();
         model.addAttribute("userInfo", userInfo);
         model.addAttribute("allUsers", userService.allUsers());
         return "admin";
-    }
-
-    @GetMapping("/admin/{id}/edit")
-    public String getEditForm(@PathVariable("id") Long id, Model model){
-        model.addAttribute("user", userService.findUserById(id));
-        return "updateAdmin.html";
     }
 
     @PatchMapping("/admin")
@@ -46,13 +39,23 @@ public class AdminController {
         user.setRoles(roleSet);
 
         userService.saveUser(user);
-        return "redirect:/admin";
+        return mainHttp;
     }
 
     @DeleteMapping("/admin")
     public String deleteUser(@RequestParam("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/admin";
+        return mainHttp;
     }
 
+    @PostMapping("/admin")
+    public String addUser(@ModelAttribute("user") User user, @RequestParam("newRoles[]") String[] roles) {
+        Set<Role> roleSet = new HashSet<>();
+        for (String role : roles){
+            roleSet.add(roleService.getRoleByName(role));
+        }
+        user.setRoles(roleSet);
+        userService.saveUser(user);
+        return mainHttp;
+    }
 }

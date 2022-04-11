@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -194,7 +195,7 @@
                 </div>
                 <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user">
                     <h5>Add new user</h5>
-                    <form th:method="post" th:action="@{/registration}" th:object="${user}">
+                    <form th:method="post" th:action="@{/admin}" th:object="${user}">
                         <div class="form-group text-center">
                             <label for="firstName">Name</label>
                             <br/>

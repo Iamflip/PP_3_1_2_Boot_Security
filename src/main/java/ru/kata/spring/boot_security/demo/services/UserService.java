@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
@@ -55,30 +54,13 @@ public class UserService implements UserDetailsService {
 
     @Transactional
     public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-
-//        Set<Role> roles = new HashSet<>();
-//
-//        roles.add(new Role(1L, "ROLE_USER"));
-//        roles.add(new Role(2L, "ROLE_ADMIN"));
-
-
-//        if (userFromDB == null){
-//            user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-//            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-//        } else {
-//            user.setPassword(userRepository.findById(user.getId()).orElse(user).getPassword());
-//        }
-
-//        user.setRoles(roles);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
 
         if (userInfo != null && userInfo.getId() == user.getId()) {
             userInfo = user;
         }
-        userRepository.save(user);
 
+        userRepository.save(user);
         return true;
     }
 
