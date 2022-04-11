@@ -76,35 +76,35 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form th:method="patch" th:action="@{/admin}">
+                                            <form th:method="patch" th:action="@{/admin}" th:object="${user}">
                                                 <div class="form-group text-center">
                                                     <label for="idEdit">Id</label>
                                                     </br>
-                                                    <input readonly type="text" th:value="*{user.getId()}" th:name="id" id="idEdit">
+                                                    <input readonly type="text" th:value="*{id}" th:name="id" id="idEdit">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="firstNameEdit">First name</label>
                                                     </br>
-                                                    <input type="text" th:value="*{user.firstName}" th:name="firstName" id="firstNameEdit">
+                                                    <input type="text" th:value="*{firstName}" th:name="firstName" id="firstNameEdit">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="lastNameEdit">Last name</label>
                                                     </br>
-                                                    <input type="text" th:value="*{user.lastName}" th:name="lastName" id="lastNameEdit">
+                                                    <input type="text" th:value="*{lastName}" th:name="lastName" id="lastNameEdit">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="ageEdit">Age</label>
                                                     </br>
-                                                    <input type="text" th:value="*{user.age}" th:name="age" id="ageEdit">
+                                                    <input type="text" th:value="*{age}" th:name="age" id="ageEdit">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="usernameEdit">Username</label>
                                                     </br>
-                                                    <input type="text" th:value="*{user.username}" th:name="username" id="usernameEdit">
+                                                    <input type="text" th:value="*{username}" th:name="username" id="usernameEdit">
                                                 </div>
 
                                                 <div class="form-group text-center">
@@ -141,35 +141,35 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form th:method="delete" th:action="@{/admin}">
+                                            <form th:method="delete" th:action="@{/admin}" th:object="${user}">
                                                 <div class="form-group text-center">
                                                     <label for="idDelete">Id</label>
                                                     </br>
-                                                    <input readonly type="text" th:value="*{user.getId()}" th:name="id" id="idDelete">
+                                                    <input readonly type="text" th:value="*{id}" th:name="id" id="idDelete">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="firstNameDelete">First name</label>
                                                     </br>
-                                                    <input readonly type="text" th:value="*{user.firstName}" id="firstNameDelete">
+                                                    <input readonly type="text" th:value="*{firstName}" id="firstNameDelete">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="lastNameDelete">Last name</label>
                                                     </br>
-                                                    <input readonly type="text" th:value="*{user.lastName}" id="lastNameDelete">
+                                                    <input readonly type="text" th:value="*{lastName}" id="lastNameDelete">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="ageDelete">Age</label>
                                                     </br>
-                                                    <input readonly type="text" th:value="*{user.age}" id="ageDelete">
+                                                    <input readonly type="text" th:value="*{age}" id="ageDelete">
                                                 </div>
 
                                                 <div class="form-group text-center">
                                                     <label for="usernameDelete">Username</label>
                                                     </br>
-                                                    <input readonly type="text" th:value="*{user.username}" id="usernameDelete">
+                                                    <input readonly type="text" th:value="*{username}" id="usernameDelete">
                                                 </div>
 
                                                 <div class="form-group text-center">
