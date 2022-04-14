@@ -10,15 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
-
-import java.util.*;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private User userInfo;
 
     @Lazy
     public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
@@ -35,15 +33,12 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User not found");
         }
 
-        userInfo = user;
-
         return user;
     }
 
     @Transactional
     public User findUserById(Long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+        return userRepository.findById(userId).orElse(null);
     }
 
     @Transactional
@@ -53,24 +48,14 @@ public class UserService implements UserDetailsService {
 
 
     @Transactional
-    public boolean saveUser(User user) {
+    public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-
-        if (userInfo != null && userInfo.getId() == user.getId()) {
-            userInfo = user;
-        }
-
         userRepository.save(user);
-        return true;
     }
 
     @Transactional
     public void deleteUser(Long userId) {
         userRepository.deleteById(userId);
-    }
-
-    public User getUserInfo() {
-        return userInfo;
     }
 
 }

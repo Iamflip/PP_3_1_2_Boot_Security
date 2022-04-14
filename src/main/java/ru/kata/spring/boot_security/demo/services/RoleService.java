@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 
+import java.util.List;
+
 @Service
 public class RoleService {
     private final RoleRepository roleRepository;
@@ -16,5 +18,10 @@ public class RoleService {
     @Transactional
     public Role getRoleByName(String name) {
         return roleRepository.findByName(name);
+    }
+
+    @Transactional
+    public List<Role> getListRole() {
+        return roleRepository.findAll();
     }
 }
