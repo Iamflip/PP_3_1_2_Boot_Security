@@ -9,11 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.DTO.UserDto;
 import ru.kata.spring.boot_security.demo.services.RoleService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping()
 @RestController
@@ -27,23 +28,23 @@ public class AdminController {
     }
 
     @GetMapping("/admin")
-    public List<User> userList() {
+    public Optional<List<UserDto>> userList() {
         return userService.allUsers();
     }
 
     @GetMapping("/admin/{id}")
-    public User findUserById(@PathVariable("id") Long id) {
+    public Optional<UserDto> findUserById(@PathVariable("id") Long id) {
         return userService.findUserById(id);
     }
 
     @PostMapping("/admin")
-    public void addUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public void addUser(@RequestBody UserDto userDto) {
+        userService.saveUser(userDto);
     }
 
     @PutMapping("/admin")
-    public void updateUser(@RequestBody User user) {
-        userService.saveUser(user);
+    public void updateUser(@RequestBody UserDto userDto) {
+        userService.updateUser(userDto);
     }
 
     @DeleteMapping("/admin/{id}")
